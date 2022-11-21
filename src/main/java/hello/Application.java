@@ -56,7 +56,7 @@ public class Application {
   @PostMapping("/**")
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
     System.out.println(arenaUpdate);
-    String[] commands = new String[]{"F", "R", "L", "T"};
+    String[] commands = new String[]{"F", "R", "L", "T","S"};
     int i = new Random().nextInt(4);
     
     // TODO add your implementation here to replace the random response. 
