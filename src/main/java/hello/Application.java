@@ -151,7 +151,7 @@ public class Application {
 	System.out.println("dim=("+dim_x+","+dim_y+")");
 	int j=0;
     for (String key : arena.getState().keySet()) {
-        System.out.println("key["+j+"]: " + key + "playstate: "+arena.getState().get(key).toString());
+        System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
         j++;
     }
 
