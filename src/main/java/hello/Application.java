@@ -39,12 +39,50 @@ public class Application {
     	
   }
 
+  static class Player {
+	  
+	    public Boolean presence;
+	    public String direction;
+	    public Boolean wasHit;
+	    public Integer score;
+
+	    
+		public Boolean getPresence() {
+			return presence;
+		}
+		public void setPresence(Boolean presence) {
+			this.presence = presence;
+		}
+		
+		public String getDirection() {
+			return direction;
+		}
+		public void setDirection(String direction) {
+			this.direction = direction;
+		}
+		public Boolean getWasHit() {
+			return wasHit;
+		}
+		public void setWasHit(Boolean wasHit) {
+			this.wasHit = wasHit;
+		}
+		public Integer getScore() {
+			return score;
+		}
+		public void setScore(Integer score) {
+			this.score = score;
+		}
+	    
+  }
+
+  
   static class PlayerState {
     public Integer x;
     public Integer y;
     public String direction;
     public Boolean wasHit;
     public Integer score;
+    
 	public Integer getX() {
 		return x;
 	}
@@ -137,31 +175,243 @@ public class Application {
 
   @PostMapping("/**")
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
-    System.out.println(arenaUpdate);
-    String[] commands = new String[]{"F", "R", "L", "T"};
-    int i = new Random().nextInt(4);
+	  
+	//System.out.println(arenaUpdate);
+    String[] allCommands = new String[]{"F", "R", "L", "T"};
+    String[] commandsLR = new String[]{"R", "L"};
+    String[] commandsLRF = new String[]{"R", "L", "F"};
+    String all_rand = allCommands[new Random().nextInt(4)]; // F, R, L or T
+    String lr_rand = commandsLR[new Random().nextInt(2)]; // L or R
+    String lrf_rand = commandsLRF[new Random().nextInt(3)]; // L or R or F
+    String commands=all_rand;
     
-    // TODO add your implementation here to replace the random response. 
-    String myHref=arenaUpdate.get_links().getSelf().getHref();
-	Arena arena=arenaUpdate.getArena();
-	Integer dim_x=arena.getDims().get(0);
-	Integer dim_y=arena.getDims().get(1);
+    try {
+	    // TODO add your implementation here to replace the random response. 
+	    String myHref=arenaUpdate.get_links().getSelf().getHref();
+		Arena arena=arenaUpdate.getArena();
+		Integer width=arena.getDims().get(0);
+		Integer height=arena.getDims().get(1);
+
+		int w,h;
+		int max_x,max_y;
+		max_x=width-1;
+		max_y=height-1;
+		
+		if ((int)width < 4)  
+			w=4;
+		else
+			w=(int)width;
+		
+		if ((int)height < 4)  
+			h=4;
+		else
+			h=(int)height;
+		
+		Player[][] canvas = new Player[w][h];
+		
+		// init canvas
+		for (int x=0;x<w;x++) {
+			for (int y=0;y<h;y++) {
+				canvas[x][y].setPresence(false);
+			}
+		}
+		
+		System.out.println("myHref="+myHref);
+		System.out.println("dim=("+width+","+height+")");
+		
+		// find my state
+		PlayerState myState = new PlayerState();
+	//	int j=0;
+	    for (String key : arena.getState().keySet()) {
+	//    	System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
+	    	if (key.equalsIgnoreCase(myHref)) {
+	    		myState=arena.getState().get(key);	
+	    	}
+	    	else { // record players
+	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setPresence(true);
+	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setDirection(arena.getState().get(key).getDirection());
+	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setWasHit(arena.getState().get(key).getWasHit());
+	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setScore(arena.getState().get(key).getScore());
+	    	}
+	 //     j++;
+	    }
 	
-	System.out.println("myHref="+myHref);
-	System.out.println("dim=("+dim_x+","+dim_y+")");
-	int j=0;
-    for (String key : arena.getState().keySet()) {
-        System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
-        j++;
+	    ////////////////////
+	    // corners
+	    ////////////////////
+	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
+	    	switch (myState.getDirection() ) {
+	    	case "N":
+	    		return "R";
+	    	case "E":
+	    		if (canvas[1][0].getPresence() || canvas[2][0].getPresence() || canvas[3][0].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	case "S":
+	    		if (canvas[0][1].getPresence() || canvas[0][2].getPresence() || canvas[0][3].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	case "W":
+	    		return "L";
+	    	default:
+	    	    return commands;		
+	    	}
+	    }
+	    
+	    if ((int)myState.getX()==max_x && (int)myState.getY()==0) {
+	    	switch (myState.getDirection() ) {
+	    	case "N":
+	    		return "L";
+	    	case "E":
+	    		return "R";
+	    	case "S":
+	    		if (canvas[max_x][1].getPresence() || canvas[max_x][2].getPresence() || canvas[max_x][3].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	case "W":
+	    		if (canvas[max_x-1][0].getPresence() || canvas[max_x-2][0].getPresence() || canvas[max_x-3][0].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	default:
+	    	    return commands;		
+	    	}
+	    }
+	    
+	    if ((int)myState.getX()==0 && (int)myState.getY()==max_y) {
+	    	switch (myState.getDirection() ) {
+	    	case "N":
+	    		if (canvas[0][max_y-1].getPresence() || canvas[0][max_y-2].getPresence() || canvas[0][max_y-3].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	case "E":
+	    		if (canvas[1][max_y].getPresence() || canvas[2][max_y].getPresence() || canvas[3][max_y].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	case "S":
+	    		return "L";
+	    	case "W":
+	    		return "R";
+	    	default:
+	    	    return commands;		
+	    	}
+	    }
+	    
+	    if ((int)myState.getX()==max_x && (int)myState.getY()==max_y) {
+	    	switch (myState.getDirection() ) {
+	    	case "N":
+	    		if (canvas[max_x][max_y-1].getPresence() || canvas[max_x][max_y-2].getPresence() || canvas[max_x][max_y-3].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	case "E":
+    			return "L";
+	    	case "S":
+	    		return "R";
+	    	case "W":
+	    		if (canvas[max_x-1][max_y].getPresence() || canvas[max_x-2][max_y].getPresence() || canvas[max_x-3][max_y].getPresence())
+	    			return "T";
+	    		else
+	    			return "F";
+	    	default:
+	    	    return commands;		
+	    	}
+	    }
+	    
+	    ////////////////////
+	    // borders
+	    ////////////////////
+	    if ((int)myState.getX()==0 && myState.getDirection().equalsIgnoreCase("W")) {
+	    	return lr_rand;
+	    }
+	    if ((int)myState.getX()==max_x && myState.getDirection().equalsIgnoreCase("E")) {
+	    	return lr_rand;
+	    }
+	    if ((int)myState.getY()==0 && myState.getDirection().equalsIgnoreCase("N")) {
+	    	return lr_rand;
+	    }
+	    if ((int)myState.getY()==max_y && myState.getDirection().equalsIgnoreCase("S")) {
+	    	return lr_rand;
+	    }
+	    
+
+	    ////////////////////
+	    // Throw players
+	    ////////////////////
+	    if (myState.getDirection().equalsIgnoreCase("N") && 
+	    		(canvas[myState.getX()-1][myState.getY()].getPresence() ||
+	    		 canvas[myState.getX()-2][myState.getY()].getPresence() ||
+	    		 canvas[myState.getX()-3][myState.getY()].getPresence())) {
+	    	return "T";
+	    }
+	    if (myState.getDirection().equalsIgnoreCase("E") && 
+	    		(canvas[myState.getX()][myState.getY()+1].getPresence() ||
+	    		 canvas[myState.getX()][myState.getY()+2].getPresence() ||
+	    		 canvas[myState.getX()][myState.getY()+3].getPresence())) {
+	    	return "T";
+	    }
+	    if (myState.getDirection().equalsIgnoreCase("S") && 
+	    		(canvas[myState.getX()+1][myState.getY()].getPresence() ||
+	   	    	 canvas[myState.getX()+2][myState.getY()].getPresence() ||
+	   	    	 canvas[myState.getX()+3][myState.getY()].getPresence())) {
+	    	return "T";
+	    }
+	    if (myState.getDirection().equalsIgnoreCase("W") && 
+	    		(canvas[myState.getX()][myState.getY()-1].getPresence() ||
+	    		 canvas[myState.getX()][myState.getY()-2].getPresence() ||
+	    		 canvas[myState.getX()][myState.getY()-3].getPresence())) {
+	    	return "T";
+	    }
+	    
+	    ////////////////////
+	    // If was not hit, L or R or F
+	    ////////////////////
+	    if (!myState.getWasHit()) {
+	    	return lrf_rand;
+	    }
+	    
+	    ////////////////////
+	    // If was hit, move forward
+	    ////////////////////
+	    if (myState.getWasHit()) {
+	    	switch (myState.getDirection() ) {
+	    	case "N":
+	    		if (!canvas[myState.getX()][myState.getY()-1].getPresence()) 
+	    	        return "F";
+	    		else 
+	    			return lr_rand;
+	    	case "E":
+	    		if (!canvas[myState.getX()+1][myState.getY()].getPresence()) 
+	    	        return "F";
+	    		else 
+	    			return lr_rand;
+	    	case "S":
+	    		if (!canvas[myState.getX()][myState.getY()+1].getPresence()) 
+	    	        return "F";
+	    		else 
+	    			return lr_rand;
+	    	case "W":
+	    		if (!canvas[myState.getX()-1][myState.getY()].getPresence()) 
+	    	        return "F";
+	    		else 
+	    			return lr_rand;
+	    	default:
+	    	    return commands;	
+	    	}
+
+	    }
+	    
+    }
+    catch (Exception e) {
+    	return commands;
     }
 
-    Integer x;
-    Integer y;
-    String direction;
-    Boolean wasHit;
-    Integer score;
-	
-    return commands[i];
+    return commands;
   }
 
 }
