@@ -278,6 +278,13 @@ public class Application {
 	    if ((int)myState.getX()==0 || (int)myState.getX()==max_x || (int)myState.getY()==0 || (int)myState.getY()==max_y) 
               atBorder=true;
 	    
+	    Boolean atCorner=false;
+	    if (((int)myState.getX()==0 && (int)myState.getY()==0) ||
+	    		((int)myState.getX()==max_x && (int)myState.getY()==0) ||
+	    		((int)myState.getX()==0 && (int)myState.getY()==max_y ) || 
+	    		((int)myState.getX()==max_x && (int)myState.getY()==max_y))
+           atCorner=true;
+	    
 	    System.out.println("At Borders:"+atBorder+" Direction:"+myState.getDirection());
 	    
 	    if ((int)myState.getX()==max_x && myState.getDirection().equalsIgnoreCase("E")) {
@@ -296,7 +303,7 @@ public class Application {
 	    System.out.println("Check Was Hit, random random");
 	    if (myState.getWasHit()) {
 	    	
-	    	if (atBorder) {
+	    	if (atBorder && !atCorner) {
 	    		// left or right border
 		    	if ((int)myState.getX()==0 || (int)myState.getX()==max_x) {
 		    		if (myState.getDirection().equalsIgnoreCase("N")) {
