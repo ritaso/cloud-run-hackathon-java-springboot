@@ -300,10 +300,10 @@ public class Application {
 	    
 		System.out.println("myState: "+myState.toString());
 		
-	    System.out.println("Check Was Hit, random random");
-	    if (myState.getWasHit()) {
+	    System.out.println("Check Was Hit (1st round)");
+	    if (myState.getWasHit() && !atCorner) {
 	    	
-	    	if (atBorder && !atCorner) {
+	    	if (atBorder) {
 	    		// left or right border
 		    	if ((int)myState.getX()==0 || (int)myState.getX()==max_x) {
 		    		if (myState.getDirection().equalsIgnoreCase("N")) {
@@ -348,13 +348,13 @@ public class Application {
 		    		
 		    	}
 		    	
+		    	if ((new Random().nextInt(2))==0) {
+	    		    System.out.println("Was Hit, do random:"+commands);
+	    		    return commands;
+		    	}
 	    	}
-	    	
-//	    	if ((new Random().nextInt(2))==0) {
-//	    		System.out.println("Was Hit, do random:"+commands);
-//	    		return commands;
-//	    	}
-	    	
+		    	
+  	
 	    	
 	    }
 	    ////////////////////
