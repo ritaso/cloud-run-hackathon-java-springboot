@@ -219,21 +219,24 @@ public class Application {
 			}
 		}
 		
+		System.out.println("No. of Players: "+arena.getState().size());
 		// find my state
 		PlayerState myState = new PlayerState();
-	//	int j=0;
+		int j=0;
 	    for (String key : arena.getState().keySet()) {
-	//    	System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
+	    	System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
 	    	if (key.equalsIgnoreCase(myHref)) {
+	    		System.out.println("get my state j=" + j);
 	    		myState=arena.getState().get(key);	
 	    	}
 	    	else { // record players
+	    		System.out.println("get player state j=" + j);
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setPresence(true);
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setDirection(arena.getState().get(key).getDirection());
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setWasHit(arena.getState().get(key).getWasHit());
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setScore(arena.getState().get(key).getScore());
 	    	}
-	 //     j++;
+	      j++;
 	    }
 	
 		System.out.println("myState: "+myState.toString());
