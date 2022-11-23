@@ -242,18 +242,113 @@ public class Application {
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setDirection(arena.getState().get(key).getDirection());
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setWasHit(arena.getState().get(key).getWasHit());
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setScore(arena.getState().get(key).getScore());
+	    		System.out.println("player["+j+"]: " + key + " " + arena.getState().get(key).toString());
 	    	}
 	      j++;
 	    }
 	
+		int x1minus=myState.getX()-1;
+		int x2minus=myState.getX()-2;
+		int x3minus=myState.getX()-3;
+		if (x2minus<0) x2minus=x1minus;
+		if (x3minus<0) x3minus=x2minus;
+		
+		int x1plus=myState.getX()+1;
+		int x2plus=myState.getX()+2;
+		int x3plus=myState.getX()+3;
+		if (x1plus>max_x) x1plus=max_x;
+		if (x2plus>max_x) x2plus=max_x;
+		if (x3plus>max_x) x3plus=max_x;
+
+		int y1minus=myState.getY()-1;
+		int y2minus=myState.getY()-2;
+		int y3minus=myState.getY()-3;
+		if (y2minus<0) y2minus=y1minus;
+		if (y3minus<0) y3minus=y2minus;
+		
+		int y1plus=myState.getY()+1;
+		int y2plus=myState.getY()+2;
+		int y3plus=myState.getY()+3;
+		if (y1plus>max_y) y1plus=max_y;
+		if (y2plus>max_y) y2plus=max_y;
+		if (y3plus>max_y) y3plus=max_y;
+		
+	    System.out.println("Check Borders");
+	    Boolean atBorder=false;
+	    if ((int)myState.getX()==0 || (int)myState.getX()==max_x || (int)myState.getY()==0 || (int)myState.getY()==max_y) 
+              atBorder=true;
+	    
+	    System.out.println("At Borders:"+atBorder+" Direction:"+myState.getDirection());
+	    
+	    if ((int)myState.getX()==max_x && myState.getDirection().equalsIgnoreCase("E")) {
+	    	return lr_rand;
+	    }
+	    if ((int)myState.getY()==0 && myState.getDirection().equalsIgnoreCase("N")) {
+	    	return lr_rand;
+	    }
+	    if ((int)myState.getY()==max_y && myState.getDirection().equalsIgnoreCase("S")) {
+	    	return lr_rand;
+	    }
+	    
+	    
 		System.out.println("myState: "+myState.toString());
 		
 	    System.out.println("Check Was Hit, random random");
 	    if (myState.getWasHit()) {
-	    	if ((new Random().nextInt(2))==0) {
-	    		System.out.println("Was Hit, do random:"+commands);
-	    		return commands;
+	    	
+	    	if (atBorder) {
+	    		// left or right border
+		    	if ((int)myState.getX()==0 || (int)myState.getX()==max_x) {
+		    		if (myState.getDirection().equalsIgnoreCase("N")) {
+		    		    if (!canvas[myState.getX()][y1minus].getPresence() && 
+		    		        !canvas[myState.getX()][y2minus].getPresence() &&
+		    		        !canvas[myState.getX()][y3minus].getPresence()) {
+		    		        return "F";    	
+		    		    }
+		    		}
+		    		else if (myState.getDirection().equalsIgnoreCase("S")) {
+		    		    if (!canvas[myState.getX()][y1plus].getPresence() && 
+			    		        !canvas[myState.getX()][y2plus].getPresence() &&
+			    		        !canvas[myState.getX()][y3plus].getPresence()) {
+			    		    return "F";    	
+			    		}		    			
+		    		}
+		    		else {
+		    			return lr_rand;
+		    		}
+		    		
+		    	}
+		    	
+	    		// top or bottom border
+		    	if ((int)myState.getY()==0 || (int)myState.getY()==max_y) {
+		    		if (myState.getDirection().equalsIgnoreCase("W")) {
+		    		    if (!canvas[x1minus][myState.getY()].getPresence() && 
+		    		        !canvas[x2minus][myState.getY()].getPresence() &&
+		    		        !canvas[x3minus][myState.getY()].getPresence()) {
+		    		        return "F";    	
+		    		    }
+		    		}
+		    		else if (myState.getDirection().equalsIgnoreCase("E")) {
+		    		    if (!canvas[x1plus][myState.getY()].getPresence() && 
+			    		        !canvas[x1plus][myState.getY()].getPresence() &&
+			    		        !canvas[x1plus][myState.getY()].getPresence()) {
+			    		    return "F";    	
+			    		}		    			
+		    		}
+		    		else {
+		    			return lr_rand;
+		    		}
+		    		
+		    	}
+		    	
 	    	}
+	    	
+//	    	if ((new Random().nextInt(2))==0) {
+//	    		System.out.println("Was Hit, do random:"+commands);
+//	    		return commands;
+//	    	}
+	    	
+	    	
 	    }
 	    ////////////////////
 	    // corners
@@ -392,32 +487,7 @@ public class Application {
 	    // Throw players
 	    ////////////////////
 	    
-		int x1minus=myState.getX()-1;
-		int x2minus=myState.getX()-2;
-		int x3minus=myState.getX()-3;
-		if (x2minus<0) x2minus=x1minus;
-		if (x3minus<0) x3minus=x2minus;
-		
-		int x1plus=myState.getX()+1;
-		int x2plus=myState.getX()+2;
-		int x3plus=myState.getX()+3;
-		if (x1plus>max_x) x1plus=max_x;
-		if (x2plus>max_x) x2plus=max_x;
-		if (x3plus>max_x) x3plus=max_x;
 
-		int y1minus=myState.getY()-1;
-		int y2minus=myState.getY()-2;
-		int y3minus=myState.getY()-3;
-		if (y2minus<0) y2minus=y1minus;
-		if (y3minus<0) y3minus=y2minus;
-		
-		int y1plus=myState.getY()+1;
-		int y2plus=myState.getY()+2;
-		int y3plus=myState.getY()+3;
-		if (y1plus>max_y) y1plus=max_y;
-		if (y2plus>max_y) y2plus=max_y;
-		if (y3plus>max_y) y3plus=max_y;
-		
 
 		System.out.println("Check Throw players");
 	    if (myState.getDirection().equalsIgnoreCase("N") && 
