@@ -46,6 +46,12 @@ public class Application {
 	    public Boolean wasHit;
 	    public Integer score;
 
+	    public Player() {
+	        this.presence=true;
+	        this.direction="";
+	        this.wasHit=false;
+	        this.score=0;
+	    }
 	    
 		public Boolean getPresence() {
 			return presence;
@@ -215,6 +221,7 @@ public class Application {
 		// init canvas
 		for (int x=0;x<w;x++) {
 			for (int y=0;y<h;y++) {
+				canvas[x][y]=new Player();
 				canvas[x][y].setPresence(false);
 			}
 		}
