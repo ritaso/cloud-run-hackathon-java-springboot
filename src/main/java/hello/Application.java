@@ -330,8 +330,8 @@ public class Application {
 		    		}
 		    		else if (myState.getDirection().equalsIgnoreCase("E")) {
 		    		    if (!canvas[x1plus][myState.getY()].getPresence() && 
-			    		        !canvas[x1plus][myState.getY()].getPresence() &&
-			    		        !canvas[x1plus][myState.getY()].getPresence()) {
+			    		        !canvas[x2plus][myState.getY()].getPresence() &&
+			    		        !canvas[x3plus][myState.getY()].getPresence()) {
 			    		    return "F";    	
 			    		}		    			
 		    		}
