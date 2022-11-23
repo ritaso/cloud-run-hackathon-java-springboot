@@ -358,7 +358,45 @@ public class Application {
 	    	if ((new Random().nextInt(2))==0) {
     		    System.out.println("Was Hit, do random:"+commands);
     		    return recordCommand(commands);
-	    	}		    	
+	    	}	
+	    	
+		    ////////////////////
+		    // If was hit (rule2), move forward
+		    ////////////////////
+	    	System.out.println("Was Hit, do move forward or random");
+	    	switch (myState.getDirection() ) {
+	    	case "N":
+	    		if (!canvas[myState.getX()][y1minus].getPresence())  {
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return recordCommand(lr_rand);
+	    		}
+	    	case "E": 
+	    		if (!canvas[x1plus][myState.getY()].getPresence()) { 
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return lr_rand;
+	    		}
+	    	case "S":
+	    		if (!canvas[myState.getX()][y1plus].getPresence()) {
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return recordCommand(lr_rand);
+	    		}
+	    	case "W":
+	    		if (!canvas[x1minus][myState.getY()].getPresence()) { 
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return recordCommand(lr_rand);
+	    		}
+	    	default:
+	    	    return recordCommand(commands);	
+	    	}
+
      	
 	    }
 	    
@@ -537,45 +575,7 @@ public class Application {
 	    	return recordCommand(lrf_rand);
 	    }
 	    
-	    ////////////////////
-	    // If was hit, move forward
-	    ////////////////////
-	    System.out.println("Check Was Hit");
-	    if (myState.getWasHit()) {
-	    	switch (myState.getDirection() ) {
-	    	case "N":
-	    		if (!canvas[myState.getX()][y1minus].getPresence())  {
-	    	        return recordCommand("F");
-	    		}
-	    		else { 
-	    			return recordCommand(lr_rand);
-	    		}
-	    	case "E": 
-	    		if (!canvas[x1plus][myState.getY()].getPresence()) { 
-	    	        return recordCommand("F");
-	    		}
-	    		else { 
-	    			return lr_rand;
-	    		}
-	    	case "S":
-	    		if (!canvas[myState.getX()][y1plus].getPresence()) {
-	    	        return recordCommand("F");
-	    		}
-	    		else { 
-	    			return recordCommand(lr_rand);
-	    		}
-	    	case "W":
-	    		if (!canvas[x1minus][myState.getY()].getPresence()) { 
-	    	        return recordCommand("F");
-	    		}
-	    		else { 
-	    			return recordCommand(lr_rand);
-	    		}
-	    	default:
-	    	    return recordCommand(commands);	
-	    	}
 
-	    }
 	    
 	    System.out.println("Default");
 	    
