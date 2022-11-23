@@ -311,27 +311,27 @@ public class Application {
 		    ////////////////////
 			System.out.println("Check was hit (rule 1):Throw players");
 		    if (myState.getDirection().equalsIgnoreCase("N") && 
-		    		(canvas[x1minus][myState.getY()].getPresence() ||
-		    		 canvas[x2minus][myState.getY()].getPresence() ||
-		    		 canvas[x3minus][myState.getY()].getPresence())) {
-		    	return recordCommand("T");
-		    }
-		    if (myState.getDirection().equalsIgnoreCase("E") && 
-		    		(canvas[myState.getX()][y1plus].getPresence() ||
-		    		 canvas[myState.getX()][y2plus].getPresence() ||
-		    		 canvas[myState.getX()][y3plus].getPresence())) {
-		    	return recordCommand("T");
-		    }
-		    if (myState.getDirection().equalsIgnoreCase("S") && 
-		    		(canvas[x1plus][myState.getY()].getPresence() ||
-		   	    	 canvas[x2plus][myState.getY()].getPresence() ||
-		   	    	 canvas[x3plus][myState.getY()].getPresence())) {
-		    	return recordCommand("T");
-		    }
-		    if (myState.getDirection().equalsIgnoreCase("W") && 
 		    		(canvas[myState.getX()][y1minus].getPresence() ||
 		    		 canvas[myState.getX()][y2minus].getPresence() ||
 		    		 canvas[myState.getX()][y3minus].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    if (myState.getDirection().equalsIgnoreCase("E") && 
+		    		(canvas[x1plus][myState.getY()].getPresence() ||
+		    		 canvas[x2plus][myState.getY()].getPresence() ||
+		    		 canvas[x3plus][myState.getY()].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    if (myState.getDirection().equalsIgnoreCase("S") && 
+		    		(canvas[myState.getX()][y1plus].getPresence() ||
+		   	    	 canvas[myState.getX()][y2plus].getPresence() ||
+		   	    	 canvas[myState.getX()][y3plus].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    if (myState.getDirection().equalsIgnoreCase("W") && 
+		    		(canvas[x1minus][myState.getY()].getPresence() ||
+		    		 canvas[x2minus][myState.getY()].getPresence() ||
+		    		 canvas[x3minus][myState.getY()].getPresence())) {
 		    	return recordCommand("T");
 		    }
 		    
