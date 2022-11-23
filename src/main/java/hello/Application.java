@@ -248,6 +248,13 @@ public class Application {
 	
 		System.out.println("myState: "+myState.toString());
 		
+	    System.out.println("Check Was Hit, random random");
+	    if (myState.getWasHit()) {
+	    	if ((new Random().nextInt(2))==0) {
+	    		System.out.println("Was Hit, do random:"+commands);
+	    		return commands;
+	    	}
+	    }
 	    ////////////////////
 	    // corners
 	    ////////////////////
