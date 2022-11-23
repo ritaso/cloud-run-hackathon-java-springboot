@@ -192,6 +192,9 @@ public class Application {
 		Integer width=arena.getDims().get(0);
 		Integer height=arena.getDims().get(1);
 
+		System.out.println("myHref="+myHref);
+		System.out.println("dim=("+width+","+height+")");
+		
 		int w,h;
 		int max_x,max_y;
 		max_x=width-1;
@@ -215,9 +218,6 @@ public class Application {
 				canvas[x][y].setPresence(false);
 			}
 		}
-		
-		System.out.println("myHref="+myHref);
-		System.out.println("dim=("+width+","+height+")");
 		
 		// find my state
 		PlayerState myState = new PlayerState();
