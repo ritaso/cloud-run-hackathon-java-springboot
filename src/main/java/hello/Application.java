@@ -236,9 +236,12 @@ public class Application {
 	 //     j++;
 	    }
 	
+		System.out.println("myState: "+myState.toString());
+		
 	    ////////////////////
 	    // corners
 	    ////////////////////
+		System.out.println("Check Corners");
 	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
@@ -326,6 +329,7 @@ public class Application {
 	    ////////////////////
 	    // borders
 	    ////////////////////
+	    System.out.println("Check Borders");
 	    if ((int)myState.getX()==0 && myState.getDirection().equalsIgnoreCase("W")) {
 	    	return lr_rand;
 	    }
@@ -343,6 +347,7 @@ public class Application {
 	    ////////////////////
 	    // Throw players
 	    ////////////////////
+	    System.out.println("Check Throw players");
 	    if (myState.getDirection().equalsIgnoreCase("N") && 
 	    		(canvas[myState.getX()-1][myState.getY()].getPresence() ||
 	    		 canvas[myState.getX()-2][myState.getY()].getPresence() ||
@@ -371,6 +376,7 @@ public class Application {
 	    ////////////////////
 	    // If was not hit, L or R or F
 	    ////////////////////
+	    System.out.println("Check Was Not Hit");
 	    if (!myState.getWasHit()) {
 	    	return lrf_rand;
 	    }
@@ -378,6 +384,7 @@ public class Application {
 	    ////////////////////
 	    // If was hit, move forward
 	    ////////////////////
+	    System.out.println("Check Was Hit");
 	    if (myState.getWasHit()) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
@@ -405,6 +412,8 @@ public class Application {
 	    	}
 
 	    }
+	    
+	    System.out.println("Default");
 	    
     }
     catch (Exception e) {
