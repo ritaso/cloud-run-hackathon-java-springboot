@@ -305,9 +305,40 @@ public class Application {
 	    
 		System.out.println("myState: "+myState.toString());
 		
-	    System.out.println("Check Was Hit (1st round)");
+		if (myState.getWasHit()) {
+		    ////////////////////
+		    // was hit (rule 1):Throw players
+		    ////////////////////
+			System.out.println("Check was hit (rule 1):Throw players");
+		    if (myState.getDirection().equalsIgnoreCase("N") && 
+		    		(canvas[x1minus][myState.getY()].getPresence() ||
+		    		 canvas[x2minus][myState.getY()].getPresence() ||
+		    		 canvas[x3minus][myState.getY()].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    if (myState.getDirection().equalsIgnoreCase("E") && 
+		    		(canvas[myState.getX()][y1plus].getPresence() ||
+		    		 canvas[myState.getX()][y2plus].getPresence() ||
+		    		 canvas[myState.getX()][y3plus].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    if (myState.getDirection().equalsIgnoreCase("S") && 
+		    		(canvas[x1plus][myState.getY()].getPresence() ||
+		   	    	 canvas[x2plus][myState.getY()].getPresence() ||
+		   	    	 canvas[x3plus][myState.getY()].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    if (myState.getDirection().equalsIgnoreCase("W") && 
+		    		(canvas[myState.getX()][y1minus].getPresence() ||
+		    		 canvas[myState.getX()][y2minus].getPresence() ||
+		    		 canvas[myState.getX()][y3minus].getPresence())) {
+		    	return recordCommand("T");
+		    }
+		    
+		}
+
 	    if (myState.getWasHit() && !atCorner) {
-	    	
+		    System.out.println("Check Was Hit (rule2): not atCorner but atBorder, move forward");	    	
 	    	if (atBorder) {
 	    		// left or right border
 		    	if ((int)myState.getX()==0 || (int)myState.getX()==max_x) {
@@ -356,14 +387,14 @@ public class Application {
 	    	}
 	    	
 	    	if ((new Random().nextInt(2))==0) {
-    		    System.out.println("Was Hit, do random:"+commands);
-    		    return recordCommand(commands);
+			    System.out.println("Check Was Hit (rule3): not at border and random random");	
+       		    return recordCommand(commands);
 	    	}	
 	    	
 		    ////////////////////
 		    // If was hit (rule2), move forward
 		    ////////////////////
-	    	System.out.println("Was Hit, do move forward or random");
+		    System.out.println("Check Was Hit (rule4): move forward");	
 	    	switch (myState.getDirection() ) {
 	    	case "N":
 	    		if (!canvas[myState.getX()][y1minus].getPresence())  {
