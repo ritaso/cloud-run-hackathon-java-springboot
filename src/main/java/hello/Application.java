@@ -179,6 +179,11 @@ public class Application {
     return "Let the battle begin!";
   }
 
+  public String recordCommand(String commands) {
+	  System.out.println("Return command:"+commands);
+	  return commands;
+  }
+  
   @PostMapping("/**")
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
 	  
@@ -285,16 +290,16 @@ public class Application {
 	    		((int)myState.getX()==max_x && (int)myState.getY()==max_y))
            atCorner=true;
 	    
-	    System.out.println("At Borders:"+atBorder+" Direction:"+myState.getDirection());
+	    System.out.println("At Borders:"+atBorder+"at Corner:"+atCorner+" Direction:"+myState.getDirection());
 	    
 	    if ((int)myState.getX()==max_x && myState.getDirection().equalsIgnoreCase("E")) {
-	    	return lr_rand;
+	    	return recordCommand(lr_rand);
 	    }
 	    if ((int)myState.getY()==0 && myState.getDirection().equalsIgnoreCase("N")) {
-	    	return lr_rand;
+	    	return recordCommand(lr_rand);
 	    }
 	    if ((int)myState.getY()==max_y && myState.getDirection().equalsIgnoreCase("S")) {
-	    	return lr_rand;
+	    	return recordCommand(lr_rand);
 	    }
 	    
 	    
@@ -310,18 +315,18 @@ public class Application {
 		    		    if (!canvas[myState.getX()][y1minus].getPresence() && 
 		    		        !canvas[myState.getX()][y2minus].getPresence() &&
 		    		        !canvas[myState.getX()][y3minus].getPresence()) {
-		    		        return "F";    	
+		    		        return recordCommand("F");    	
 		    		    }
 		    		}
 		    		else if (myState.getDirection().equalsIgnoreCase("S")) {
 		    		    if (!canvas[myState.getX()][y1plus].getPresence() && 
 			    		        !canvas[myState.getX()][y2plus].getPresence() &&
 			    		        !canvas[myState.getX()][y3plus].getPresence()) {
-			    		    return "F";    	
+			    		    return recordCommand("F");    	
 			    		}		    			
 		    		}
 		    		else {
-		    			return lr_rand;
+		    			return recordCommand(lr_rand);
 		    		}
 		    		
 		    	}
@@ -332,31 +337,31 @@ public class Application {
 		    		    if (!canvas[x1minus][myState.getY()].getPresence() && 
 		    		        !canvas[x2minus][myState.getY()].getPresence() &&
 		    		        !canvas[x3minus][myState.getY()].getPresence()) {
-		    		        return "F";    	
+		    		        return recordCommand("F");    	
 		    		    }
 		    		}
 		    		else if (myState.getDirection().equalsIgnoreCase("E")) {
 		    		    if (!canvas[x1plus][myState.getY()].getPresence() && 
 			    		        !canvas[x2plus][myState.getY()].getPresence() &&
 			    		        !canvas[x3plus][myState.getY()].getPresence()) {
-			    		    return "F";    	
+			    		    return recordCommand("F");    	
 			    		}		    			
 		    		}
 		    		else {
-		    			return lr_rand;
+		    			return recordCommand(lr_rand);
 		    		}
 		    		
 		    	}
-		    	
-		    	if ((new Random().nextInt(2))==0) {
-	    		    System.out.println("Was Hit, do random:"+commands);
-	    		    return commands;
-		    	}
+	
 	    	}
-		    	
-  	
 	    	
+	    	if ((new Random().nextInt(2))==0) {
+    		    System.out.println("Was Hit, do random:"+commands);
+    		    return recordCommand(commands);
+	    	}		    	
+     	
 	    }
+	    
 	    ////////////////////
 	    // corners
 	    ////////////////////
@@ -364,21 +369,21 @@ public class Application {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		return "R";
+	    		return recordCommand("R");
 	    	case "E":
 	    		if (canvas[1][0].getPresence() || canvas[2][0].getPresence() || canvas[3][0].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	case "S":
 	    		if (canvas[0][1].getPresence() || canvas[0][2].getPresence() || canvas[0][3].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	case "W":
-	    		return "L";
+	    		return recordCommand("L");
 	    	default:
-	    	    return commands;		
+	    	    return recordCommand(commands);		
 	    	}
 	    }
 	    
@@ -388,14 +393,14 @@ public class Application {
 	    if ((int)myState.getX()==max_x && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		return "L";
+	    		return recordCommand("L");
 	    	case "E":
-	    		return "R";
+	    		return recordCommand("R");
 	    	case "S":
 	    		if (canvas[max_x][1].getPresence() || canvas[max_x][2].getPresence() || canvas[max_x][3].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	case "W":
 	    		x1=max_x-1;
 	    		x2=max_x-2;
@@ -404,11 +409,11 @@ public class Application {
 	    		if (x3<0) x3=x2;
 	    		
 	    		if (canvas[x1][0].getPresence() || canvas[x2][0].getPresence() || canvas[x3][0].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	default:
-	    	    return commands;		
+	    	    return recordCommand(commands);		
 	    	}
 	    }
 	    
@@ -422,20 +427,20 @@ public class Application {
 	    		if (y3<0) y3=y2;
 	    		
 	    		if (canvas[0][y1].getPresence() || canvas[0][y2].getPresence() || canvas[0][y3].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	case "E":
 	    		if (canvas[1][max_y].getPresence() || canvas[2][max_y].getPresence() || canvas[3][max_y].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	case "S":
-	    		return "L";
+	    		return recordCommand("L");
 	    	case "W":
-	    		return "R";
+	    		return recordCommand("R");
 	    	default:
-	    	    return commands;		
+	    	    return recordCommand(commands);		
 	    	}
 	    }
 	    
@@ -449,13 +454,13 @@ public class Application {
 	    		if (y3<0) y3=y2;
 	    		
 	    		if (canvas[max_x][y1].getPresence() || canvas[max_x][y2].getPresence() || canvas[max_x][y3].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	case "E":
-    			return "L";
+    			return recordCommand("L");
 	    	case "S":
-	    		return "R";
+	    		return recordCommand("R");
 	    	case "W":
 	    		x1=max_x-1;
 	    		x2=max_x-2;
@@ -464,31 +469,33 @@ public class Application {
 	    		if (x3<0) x3=x2;
 	    		
 	    		if (canvas[x1][max_y].getPresence() || canvas[max_x-2][x2].getPresence() || canvas[x3][max_y].getPresence())
-	    			return "T";
+	    			return recordCommand("T");
 	    		else
-	    			return "F";
+	    			return recordCommand("F");
 	    	default:
-	    	    return commands;		
+	    	    return recordCommand(commands);		
 	    	}
 	    }
 	    
 	    ////////////////////
 	    // borders
 	    ////////////////////
-	    System.out.println("Check Borders");
-	    if ((int)myState.getX()==0 && myState.getDirection().equalsIgnoreCase("W")) {
-	    	return lr_rand;
-	    }
-	    if ((int)myState.getX()==max_x && myState.getDirection().equalsIgnoreCase("E")) {
-	    	return lr_rand;
-	    }
-	    if ((int)myState.getY()==0 && myState.getDirection().equalsIgnoreCase("N")) {
-	    	return lr_rand;
-	    }
-	    if ((int)myState.getY()==max_y && myState.getDirection().equalsIgnoreCase("S")) {
-	    	return lr_rand;
-	    }
+	    System.out.println("Check atBorder:"+atBorder);
 	    
+	    if (atBorder) {
+		    if ((int)myState.getX()==0 && myState.getDirection().equalsIgnoreCase("W")) {
+		    	return recordCommand(lr_rand);
+		    }
+		    if ((int)myState.getX()==max_x && myState.getDirection().equalsIgnoreCase("E")) {
+		    	return recordCommand(lr_rand);
+		    }
+		    if ((int)myState.getY()==0 && myState.getDirection().equalsIgnoreCase("N")) {
+		    	return recordCommand(lr_rand);
+		    }
+		    if ((int)myState.getY()==max_y && myState.getDirection().equalsIgnoreCase("S")) {
+		    	return recordCommand(lr_rand);
+		    }
+	    }
 
 	    ////////////////////
 	    // Throw players
@@ -501,25 +508,25 @@ public class Application {
 	    		(canvas[x1minus][myState.getY()].getPresence() ||
 	    		 canvas[x2minus][myState.getY()].getPresence() ||
 	    		 canvas[x3minus][myState.getY()].getPresence())) {
-	    	return "T";
+	    	return recordCommand("T");
 	    }
 	    if (myState.getDirection().equalsIgnoreCase("E") && 
 	    		(canvas[myState.getX()][y1plus].getPresence() ||
 	    		 canvas[myState.getX()][y2plus].getPresence() ||
 	    		 canvas[myState.getX()][y3plus].getPresence())) {
-	    	return "T";
+	    	return recordCommand("T");
 	    }
 	    if (myState.getDirection().equalsIgnoreCase("S") && 
 	    		(canvas[x1plus][myState.getY()].getPresence() ||
 	   	    	 canvas[x2plus][myState.getY()].getPresence() ||
 	   	    	 canvas[x3plus][myState.getY()].getPresence())) {
-	    	return "T";
+	    	return recordCommand("T");
 	    }
 	    if (myState.getDirection().equalsIgnoreCase("W") && 
 	    		(canvas[myState.getX()][y1minus].getPresence() ||
 	    		 canvas[myState.getX()][y2minus].getPresence() ||
 	    		 canvas[myState.getX()][y3minus].getPresence())) {
-	    	return "T";
+	    	return recordCommand("T");
 	    }
 	    
 	    ////////////////////
@@ -527,7 +534,7 @@ public class Application {
 	    ////////////////////
 	    System.out.println("Check Was Not Hit");
 	    if (!myState.getWasHit()) {
-	    	return lrf_rand;
+	    	return recordCommand(lrf_rand);
 	    }
 	    
 	    ////////////////////
@@ -537,27 +544,35 @@ public class Application {
 	    if (myState.getWasHit()) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		if (!canvas[myState.getX()][y1minus].getPresence()) 
-	    	        return "F";
-	    		else 
+	    		if (!canvas[myState.getX()][y1minus].getPresence())  {
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return recordCommand(lr_rand);
+	    		}
+	    	case "E": 
+	    		if (!canvas[x1plus][myState.getY()].getPresence()) { 
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
 	    			return lr_rand;
-	    	case "E":
-	    		if (!canvas[x1plus][myState.getY()].getPresence()) 
-	    	        return "F";
-	    		else 
-	    			return lr_rand;
+	    		}
 	    	case "S":
-	    		if (!canvas[myState.getX()][y1plus].getPresence()) 
-	    	        return "F";
-	    		else 
-	    			return lr_rand;
+	    		if (!canvas[myState.getX()][y1plus].getPresence()) {
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return recordCommand(lr_rand);
+	    		}
 	    	case "W":
-	    		if (!canvas[x1minus][myState.getY()].getPresence()) 
-	    	        return "F";
-	    		else 
-	    			return lr_rand;
+	    		if (!canvas[x1minus][myState.getY()].getPresence()) { 
+	    	        return recordCommand("F");
+	    		}
+	    		else { 
+	    			return recordCommand(lr_rand);
+	    		}
 	    	default:
-	    	    return commands;	
+	    	    return recordCommand(commands);	
 	    	}
 
 	    }
@@ -566,10 +581,11 @@ public class Application {
 	    
     }
     catch (Exception e) {
-    	return commands;
+	    System.out.println("Exception:"+e);
+    	return recordCommand(commands);
     }
 
-    return commands;
+    return recordCommand(commands);
   }
 
 }
