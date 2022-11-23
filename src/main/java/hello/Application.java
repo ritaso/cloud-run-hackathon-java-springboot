@@ -273,6 +273,9 @@ public class Application {
 	    	}
 	    }
 	    
+	    int x1,x2,x3;
+	    int y1,y2,y3;
+	    
 	    if ((int)myState.getX()==max_x && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
@@ -285,7 +288,13 @@ public class Application {
 	    		else
 	    			return "F";
 	    	case "W":
-	    		if (canvas[max_x-1][0].getPresence() || canvas[max_x-2][0].getPresence() || canvas[max_x-3][0].getPresence())
+	    		x1=max_x-1;
+	    		x2=max_x-2;
+	    		x3=max_x-3;
+	    		if (x2<0) x2=x1;
+	    		if (x3<0) x3=x2;
+	    		
+	    		if (canvas[x1][0].getPresence() || canvas[x2][0].getPresence() || canvas[x3][0].getPresence())
 	    			return "T";
 	    		else
 	    			return "F";
@@ -297,7 +306,13 @@ public class Application {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==max_y) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		if (canvas[0][max_y-1].getPresence() || canvas[0][max_y-2].getPresence() || canvas[0][max_y-3].getPresence())
+	    		y1=max_y-1;
+	    		y2=max_y-2;
+	    		y3=max_y-3;
+	    		if (y2<0) y2=y1;
+	    		if (y3<0) y3=y2;
+	    		
+	    		if (canvas[0][y1].getPresence() || canvas[0][y2].getPresence() || canvas[0][y3].getPresence())
 	    			return "T";
 	    		else
 	    			return "F";
@@ -318,7 +333,13 @@ public class Application {
 	    if ((int)myState.getX()==max_x && (int)myState.getY()==max_y) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		if (canvas[max_x][max_y-1].getPresence() || canvas[max_x][max_y-2].getPresence() || canvas[max_x][max_y-3].getPresence())
+	    		y1=max_y-1;
+	    		y2=max_y-2;
+	    		y3=max_y-3;
+	    		if (y2<0) y2=y1;
+	    		if (y3<0) y3=y2;
+	    		
+	    		if (canvas[max_x][y1].getPresence() || canvas[max_x][y2].getPresence() || canvas[max_x][y3].getPresence())
 	    			return "T";
 	    		else
 	    			return "F";
@@ -327,7 +348,13 @@ public class Application {
 	    	case "S":
 	    		return "R";
 	    	case "W":
-	    		if (canvas[max_x-1][max_y].getPresence() || canvas[max_x-2][max_y].getPresence() || canvas[max_x-3][max_y].getPresence())
+	    		x1=max_x-1;
+	    		x2=max_x-2;
+	    		x3=max_x-3;
+	    		if (x2<0) x2=x1;
+	    		if (x3<0) x3=x2;
+	    		
+	    		if (canvas[x1][max_y].getPresence() || canvas[max_x-2][x2].getPresence() || canvas[x3][max_y].getPresence())
 	    			return "T";
 	    		else
 	    			return "F";
@@ -357,29 +384,57 @@ public class Application {
 	    ////////////////////
 	    // Throw players
 	    ////////////////////
-	    System.out.println("Check Throw players");
+	    
+		int x1minus=myState.getX()-1;
+		int x2minus=myState.getX()-2;
+		int x3minus=myState.getX()-3;
+		if (x2minus<0) x2minus=x1minus;
+		if (x3minus<0) x3minus=x2minus;
+		
+		int x1plus=myState.getX()+1;
+		int x2plus=myState.getX()+2;
+		int x3plus=myState.getX()+3;
+		if (x1plus>max_x) x1plus=max_x;
+		if (x2plus>max_x) x2plus=max_x;
+		if (x3plus>max_x) x3plus=max_x;
+
+		int y1minus=myState.getY()-1;
+		int y2minus=myState.getY()-2;
+		int y3minus=myState.getY()-3;
+		if (y2minus<0) y2minus=y1minus;
+		if (y3minus<0) y3minus=y2minus;
+		
+		int y1plus=myState.getY()+1;
+		int y2plus=myState.getY()+2;
+		int y3plus=myState.getY()+3;
+		if (y1plus>max_y) y1plus=max_y;
+		if (y2plus>max_y) y2plus=max_y;
+		if (y3plus>max_y) y3plus=max_y;
+		
+
+		System.out.println("Check Throw players");
 	    if (myState.getDirection().equalsIgnoreCase("N") && 
-	    		(canvas[myState.getX()-1][myState.getY()].getPresence() ||
-	    		 canvas[myState.getX()-2][myState.getY()].getPresence() ||
-	    		 canvas[myState.getX()-3][myState.getY()].getPresence())) {
+	    		(canvas[x1minus][myState.getY()].getPresence() ||
+	    		 canvas[x2minus][myState.getY()].getPresence() ||
+	    		 canvas[x3minus][myState.getY()].getPresence())) {
 	    	return "T";
 	    }
 	    if (myState.getDirection().equalsIgnoreCase("E") && 
-	    		(canvas[myState.getX()][myState.getY()+1].getPresence() ||
-	    		 canvas[myState.getX()][myState.getY()+2].getPresence() ||
-	    		 canvas[myState.getX()][myState.getY()+3].getPresence())) {
+	    		(canvas[myState.getX()][y1plus].getPresence() ||
+	    		 canvas[myState.getX()][y2plus].getPresence() ||
+	    		 canvas[myState.getX()][y3plus].getPresence())) {
 	    	return "T";
 	    }
 	    if (myState.getDirection().equalsIgnoreCase("S") && 
-	    		(canvas[myState.getX()+1][myState.getY()].getPresence() ||
-	   	    	 canvas[myState.getX()+2][myState.getY()].getPresence() ||
-	   	    	 canvas[myState.getX()+3][myState.getY()].getPresence())) {
+	    		(canvas[x1plus][myState.getY()].getPresence() ||
+	   	    	 canvas[x2plus][myState.getY()].getPresence() ||
+	   	    	 canvas[x3plus][myState.getY()].getPresence())) {
 	    	return "T";
 	    }
 	    if (myState.getDirection().equalsIgnoreCase("W") && 
-	    		(canvas[myState.getX()][myState.getY()-1].getPresence() ||
-	    		 canvas[myState.getX()][myState.getY()-2].getPresence() ||
-	    		 canvas[myState.getX()][myState.getY()-3].getPresence())) {
+	    		(canvas[myState.getX()][y1minus].getPresence() ||
+	    		 canvas[myState.getX()][y2minus].getPresence() ||
+	    		 canvas[myState.getX()][y3minus].getPresence())) {
 	    	return "T";
 	    }
 	    
@@ -398,22 +453,22 @@ public class Application {
 	    if (myState.getWasHit()) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		if (!canvas[myState.getX()][myState.getY()-1].getPresence()) 
+	    		if (!canvas[myState.getX()][y1minus].getPresence()) 
 	    	        return "F";
 	    		else 
 	    			return lr_rand;
 	    	case "E":
-	    		if (!canvas[myState.getX()+1][myState.getY()].getPresence()) 
+	    		if (!canvas[x1plus][myState.getY()].getPresence()) 
 	    	        return "F";
 	    		else 
 	    			return lr_rand;
 	    	case "S":
-	    		if (!canvas[myState.getX()][myState.getY()+1].getPresence()) 
+	    		if (!canvas[myState.getX()][y1plus].getPresence()) 
 	    	        return "F";
 	    		else 
 	    			return lr_rand;
 	    	case "W":
-	    		if (!canvas[myState.getX()-1][myState.getY()].getPresence()) 
+	    		if (!canvas[x1minus][myState.getY()].getPresence()) 
 	    	        return "F";
 	    		else 
 	    			return lr_rand;
