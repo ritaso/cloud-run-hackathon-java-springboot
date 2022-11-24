@@ -428,7 +428,7 @@ public class Application {
     lr_rand = commandsLR[new Random().nextInt(2)]; // L or R
     lrf_rand = commandsLRF[new Random().nextInt(3)]; // L or R or F
     commands=all_rand;
-    Boolean do_random=true;
+    Boolean do_random=false;
     
     try {
 	    // TODO add your implementation here to replace the random response. 
