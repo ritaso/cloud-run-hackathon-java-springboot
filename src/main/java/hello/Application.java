@@ -241,8 +241,132 @@ public class Application {
   }
   
   public String findNextTarget() {
-	    
-	  return "";
+	
+	int left_loc=0,right_loc=0,behind_loc=0;
+	
+  	switch (myState.getDirection() ) {
+  	case "N":
+  		 // Left Side
+		 if (canvas[x1minus][myState.getY()].getPresence())
+			 left_loc=1;
+		 else if (canvas[x2minus][myState.getY()].getPresence())
+			 left_loc=2;	
+		 else if (canvas[x3minus][myState.getY()].getPresence())
+			 left_loc=3;
+		 
+		 // Right Side
+		 if (canvas[x1plus][myState.getY()].getPresence())
+			 right_loc=1;
+		 else if (canvas[x2plus][myState.getY()].getPresence())
+			 right_loc=2;	
+		 else if (canvas[x3plus][myState.getY()].getPresence())
+			 right_loc=3;
+	
+		// Behind
+		 if (canvas[myState.getX()][y1plus].getPresence())
+			 behind_loc=1;
+		 else if (canvas[myState.getX()][y2plus].getPresence())
+			 behind_loc=2;	
+		 else if (canvas[myState.getX()][y3plus].getPresence())
+			 behind_loc=3;
+		 
+	     break;
+  	case "E":
+ 		 // Left Side
+		 if (canvas[myState.getX()][y1minus].getPresence())
+			 left_loc=1;
+		 else if (canvas[myState.getX()][y2minus].getPresence())
+			 left_loc=2;	
+		 else if (canvas[myState.getX()][y3minus].getPresence())
+			 left_loc=3;
+		 
+		 // Right Side
+		 if (canvas[myState.getX()][y1plus].getPresence())
+			 left_loc=1;
+		 else if (canvas[myState.getX()][y2plus].getPresence())
+			 left_loc=2;	
+		 else if (canvas[myState.getX()][y3plus].getPresence())
+			 left_loc=3;
+	
+		// Behind
+		 if (canvas[x1minus][myState.getY()].getPresence())
+			 behind_loc=1;
+		 else if (canvas[x2minus][myState.getY()].getPresence())
+			 behind_loc=2;	
+		 else if (canvas[x3minus][myState.getY()].getPresence())
+			 behind_loc=3;
+  		 break;
+  	case "S":
+ 		 // Left Side
+		 if (canvas[x1plus][myState.getY()].getPresence())
+			 left_loc=1;
+		 else if (canvas[x2plus][myState.getY()].getPresence())
+			 left_loc=2;	
+		 else if (canvas[x3plus][myState.getY()].getPresence())
+			 left_loc=3;
+		 
+		 // Right Side
+		 if (canvas[x1minus][myState.getY()].getPresence())
+			 right_loc=1;
+		 else if (canvas[x2minus][myState.getY()].getPresence())
+			 right_loc=2;	
+		 else if (canvas[x3minus][myState.getY()].getPresence())
+			 right_loc=3;
+	
+		// Behind
+		 if (canvas[myState.getX()][y1minus].getPresence())
+			 behind_loc=1;
+		 else if (canvas[myState.getX()][y2minus].getPresence())
+			 behind_loc=2;	
+		 else if (canvas[myState.getX()][y3minus].getPresence())
+			 behind_loc=3;
+  		 break;
+  	case "W":
+		 // Left Side
+		 if (canvas[myState.getX()][y1plus].getPresence())
+			 left_loc=1;
+		 else if (canvas[myState.getX()][y2plus].getPresence())
+			 left_loc=2;	
+		 else if (canvas[myState.getX()][y3plus].getPresence())
+			 left_loc=3;
+		 
+		 // Right Side
+		 if (canvas[myState.getX()][y1minus].getPresence())
+			 left_loc=1;
+		 else if (canvas[myState.getX()][y2minus].getPresence())
+			 left_loc=2;	
+		 else if (canvas[myState.getX()][y3minus].getPresence())
+			 left_loc=3;
+	
+		// Behind
+		 if (canvas[x1plus][myState.getY()].getPresence())
+			 behind_loc=1;
+		 else if (canvas[x2plus][myState.getY()].getPresence())
+			 behind_loc=2;	
+		 else if (canvas[x3plus][myState.getY()].getPresence())
+			 behind_loc=3;
+ 		 break;
+  	default:
+  		 return "";
+  	}
+
+	 if (left_loc==0 && right_loc==0 && behind_loc==0)
+		 return "";
+	 
+	 if (left_loc != 0) {
+		 if (right_loc == 0 || left_loc <= right_loc) {
+			 return recordCommand("L");
+		 }
+		 if (left_loc > right_loc) {
+			 return recordCommand("R");
+		 }
+	 }
+	 
+	 if (behind_loc != 0) {
+		 return recordCommand("L");
+	 }
+	 
+	 return "";
   }
   
   public String handleCorner() {
@@ -428,7 +552,7 @@ public class Application {
     lr_rand = commandsLR[new Random().nextInt(2)]; // L or R
     lrf_rand = commandsLRF[new Random().nextInt(3)]; // L or R or F
     commands=all_rand;
-    Boolean do_random=false;
+    Boolean do_random=true;
     
     try {
 	    // TODO add your implementation here to replace the random response. 
@@ -595,6 +719,14 @@ public class Application {
 	    	     	
 	    }
 	    
+	    ////////////////////
+	    // move base on target
+	    ////////////////////   
+		System.out.println("Check any Target");
+	    cmd=findNextTarget();
+		if (!cmd.equals(""))
+			return cmd;
+		
 	    ////////////////////
 	    // corners
 	    ////////////////////
