@@ -31,6 +31,9 @@ public class Application {
 	private int y3plus;
 	private int max_x,max_y;
 	
+    int maxx1minus,maxx2minus,maxx3minus;
+    int maxy1minus,maxy2minus,maxy3minus;
+	
 	private Player[][] canvas; 
 	private PlayerState myState;
 	
@@ -259,9 +262,7 @@ public class Application {
 	    	}
 	    }
 	    
-	    int x1,x2,x3;
-	    int y1,y2,y3;
-	    
+    
 	    if ((int)myState.getX()==max_x && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
@@ -274,13 +275,7 @@ public class Application {
 	    		else
 	    			return recordCommand("F");
 	    	case "W":
-	    		x1=max_x-1;
-	    		x2=max_x-2;
-	    		x3=max_x-3;
-	    		if (x2<0) x2=x1;
-	    		if (x3<0) x3=x2;
-	    		
-	    		if (canvas[x1][0].getPresence() || canvas[x2][0].getPresence() || canvas[x3][0].getPresence())
+	    		if (canvas[maxx1minus][0].getPresence() || canvas[maxx2minus][0].getPresence() || canvas[maxx3minus][0].getPresence())
 	    			return recordCommand("T");
 	    		else
 	    			return recordCommand("F");
@@ -292,13 +287,7 @@ public class Application {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==max_y) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		y1=max_y-1;
-	    		y2=max_y-2;
-	    		y3=max_y-3;
-	    		if (y2<0) y2=y1;
-	    		if (y3<0) y3=y2;
-	    		
-	    		if (canvas[0][y1].getPresence() || canvas[0][y2].getPresence() || canvas[0][y3].getPresence())
+	    		if (canvas[0][maxy1minus].getPresence() || canvas[0][maxy2minus].getPresence() || canvas[0][maxy3minus].getPresence())
 	    			return recordCommand("T");
 	    		else
 	    			return recordCommand("F");
@@ -319,13 +308,7 @@ public class Application {
 	    if ((int)myState.getX()==max_x && (int)myState.getY()==max_y) {
 	    	switch (myState.getDirection() ) {
 	    	case "N":
-	    		y1=max_y-1;
-	    		y2=max_y-2;
-	    		y3=max_y-3;
-	    		if (y2<0) y2=y1;
-	    		if (y3<0) y3=y2;
-	    		
-	    		if (canvas[max_x][y1].getPresence() || canvas[max_x][y2].getPresence() || canvas[max_x][y3].getPresence())
+	    		if (canvas[max_x][maxy1minus].getPresence() || canvas[max_x][maxy2minus].getPresence() || canvas[max_x][maxy3minus].getPresence())
 	    			return recordCommand("T");
 	    		else
 	    			return recordCommand("F");
@@ -334,13 +317,7 @@ public class Application {
 	    	case "S":
 	    		return recordCommand("R");
 	    	case "W":
-	    		x1=max_x-1;
-	    		x2=max_x-2;
-	    		x3=max_x-3;
-	    		if (x2<0) x2=x1;
-	    		if (x3<0) x3=x2;
-	    		
-	    		if (canvas[x1][max_y].getPresence() || canvas[max_x-2][x2].getPresence() || canvas[x3][max_y].getPresence())
+	    		if (canvas[maxx1minus][max_y].getPresence() || canvas[maxx2minus][max_y].getPresence() || canvas[maxx3minus][max_y].getPresence())
 	    			return recordCommand("T");
 	    		else
 	    			return recordCommand("F");
@@ -532,6 +509,20 @@ public class Application {
 		if (y1plus>max_y) y1plus=max_y;
 		if (y2plus>max_y) y2plus=max_y;
 		if (y3plus>max_y) y3plus=max_y;
+		
+		maxx1minus=max_x-1;
+		maxx2minus=max_x-2;
+		maxx3minus=max_x-3;
+		if (maxx1minus<0) maxx1minus=0;
+		if (maxx2minus<0) maxx2minus=maxx1minus;
+		if (maxx3minus<0) maxx3minus=maxx2minus;
+		
+		maxy1minus=max_y-1;
+		maxy2minus=max_y-2;
+		maxy3minus=max_y-3;
+		if (maxy1minus<0) maxy1minus=0;
+		if (maxy2minus<0) maxy2minus=maxy1minus;
+		if (maxy3minus<0) maxy3minus=maxy2minus;
 		
 	    System.out.println("Check Borders");
 	    Boolean atBorder=false;
