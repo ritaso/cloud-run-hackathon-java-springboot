@@ -240,6 +240,11 @@ public class Application {
 	    
   }
   
+  public String findNextTarget() {
+	    
+	  return "";
+  }
+  
   public String handleCorner() {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
@@ -364,7 +369,7 @@ public class Application {
   	
   }
   
-  public String borderAction(String lr_rand) {
+  public String borderAction() {
 	// left or right border
   	if ((int)myState.getX()==0 || (int)myState.getX()==max_x) {
   		if (myState.getDirection().equalsIgnoreCase("N")) {
@@ -481,7 +486,8 @@ public class Application {
 	    	}
 	      j++;
 	    }
-	
+	    
+    
 		x1minus=myState.getX()-1;
 		x2minus=myState.getX()-2;
 		x3minus=myState.getX()-3;
@@ -542,21 +548,31 @@ public class Application {
 		
 		String cmd;
 		
+		//random
+	    return recordCommand(commands);
+	    
+		// Rule 0: already has target, throw players
+		System.out.println("Rule 0: try to throw players");
+		cmd=throwPlayers();
+		if (!cmd.equals(""))
+			return cmd;
+		
 		if (myState.getWasHit()) {
 		    ////////////////////
 		    // was hit (rule 1):Throw players
 		    ////////////////////
-			System.out.println("Check was hit (rule 1):Throw players");
+			System.out.println("Check was hit (rule 1): try to throw players");
 			cmd=throwPlayers();
 			if (!cmd.equals(""))
 				return cmd;
 	    
 		}
 
-	    if (myState.getWasHit() && !atCorner) {
-		    System.out.println("Check Was Hit (rule2): not atCorner but atBorder, move forward");	    	
+	    if (myState.getWasHit() && !atCorner && atBorder) {
+		        	
 	    	if (atBorder) {
-	    		cmd=borderAction(lr_rand);
+	    		System.out.println("Check Was Hit (rule2): not atCorner but atBorder, try to move forward");
+	    		cmd=borderAction();
 				if (!cmd.equals(""))
 					return cmd;
 	
@@ -570,7 +586,7 @@ public class Application {
 		    ////////////////////
 		    // If was hit (rule2), move forward
 		    ////////////////////
-		    System.out.println("Check Was Hit (rule4): move forward");
+		    System.out.println("Check Was Hit (rule4): try to move forward");
 		    cmd=moveForward();
 			if (!cmd.equals(""))
 				return cmd;
@@ -593,7 +609,7 @@ public class Application {
 	    System.out.println("Check atBorder:"+atBorder);
 	    
 	    if (atBorder) {
-    		cmd=borderAction(lr_rand);
+    		cmd=borderAction();
 			if (!cmd.equals(""))
 				return cmd;
 	    }
