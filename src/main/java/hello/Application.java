@@ -428,6 +428,7 @@ public class Application {
     lr_rand = commandsLR[new Random().nextInt(2)]; // L or R
     lrf_rand = commandsLRF[new Random().nextInt(3)]; // L or R or F
     commands=all_rand;
+    Boolean do_random=true;
     
     try {
 	    // TODO add your implementation here to replace the random response. 
@@ -549,7 +550,8 @@ public class Application {
 		String cmd;
 		
 		//random
-	    return recordCommand(commands);
+		if (do_random)
+	       return recordCommand(commands);
 	    
 		// Rule 0: already has target, throw players
 		System.out.println("Rule 0: try to throw players");
