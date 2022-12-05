@@ -678,10 +678,10 @@ public class Application {
 	       return recordCommand(commands);
 	    
 		// Rule 0: already has target, throw players
-		System.out.println("Rule 0: try to throw players");
-		cmd=throwPlayers();
-		if (!cmd.equals(""))
-			return cmd;
+//		System.out.println("Rule 0: try to throw players");
+//		cmd=throwPlayers();
+//		if (!cmd.equals(""))
+//			return cmd;
 		
 		if (myState.getWasHit()) {
 		    ////////////////////
@@ -719,6 +719,12 @@ public class Application {
 	    	     	
 	    }
 	    
+		// Rule 0: already has target, throw players
+		System.out.println("Rule 0: try to throw players");
+		cmd=throwPlayers();
+		if (!cmd.equals(""))
+			return cmd;
+		
 	    ////////////////////
 	    // move base on target
 	    ////////////////////   
