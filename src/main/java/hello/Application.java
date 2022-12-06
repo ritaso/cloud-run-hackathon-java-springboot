@@ -791,7 +791,7 @@ public class Application {
 //		}
 
 		
-		if (myState.getWasHit() && !atCorner) {
+		if (myState.getWasHit() && atCorner) {
 			cmd=handleCornerButHitted();
 			if (!cmd.equals(""))
 				return cmd;
