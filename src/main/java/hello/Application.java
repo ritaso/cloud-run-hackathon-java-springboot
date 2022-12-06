@@ -207,7 +207,7 @@ public class Application {
   }
 
   public String recordCommand(String commands) {
-	  System.out.println("Return command:"+commands);
+//	  System.out.println("Return command:"+commands);
 	  return commands;
   }
   
@@ -730,8 +730,8 @@ public class Application {
 		Integer width=arena.getDims().get(0);
 		Integer height=arena.getDims().get(1);
 
-		System.out.println("myHref="+myHref);
-		System.out.println("dim=("+width+","+height+")");
+//		System.out.println("myHref="+myHref);
+//		System.out.println("dim=("+width+","+height+")");
 		
 		int w,h;
 //		int max_x,max_y;
@@ -759,24 +759,24 @@ public class Application {
 			}
 		}
 		
-		System.out.println("No. of Players: "+arena.getState().size());
+//		System.out.println("No. of Players: "+arena.getState().size());
 		// find my state
 //		PlayerState myState = new PlayerState();
 		myState = new PlayerState();
 		int j=0;
 	    for (String key : arena.getState().keySet()) {
-	    	System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
+//	    	System.out.println("key["+j+"]: " + key + " " + arena.getState().get(key).toString());
 	    	if (key.equalsIgnoreCase(myHref)) {
-	    		System.out.println("get my state j=" + j);
+//	    		System.out.println("get my state j=" + j);
 	    		myState=arena.getState().get(key);	
 	    	}
 	    	else { // record players
-	    		System.out.println("get player state j=" + j);
+//	    		System.out.println("get player state j=" + j);
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setPresence(true);
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setDirection(arena.getState().get(key).getDirection());
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setWasHit(arena.getState().get(key).getWasHit());
 	    		canvas[arena.getState().get(key).getX()][arena.getState().get(key).getY()].setScore(arena.getState().get(key).getScore());
-	    		System.out.println("player["+j+"]: " + key + " " + arena.getState().get(key).toString());
+//	    		System.out.println("player["+j+"]: " + key + " " + arena.getState().get(key).toString());
 	    	}
 	      j++;
 	    }
@@ -824,7 +824,7 @@ public class Application {
 		if (maxy2minus<0) maxy2minus=maxy1minus;
 		if (maxy3minus<0) maxy3minus=maxy2minus;
 		
-	    System.out.println("Check Borders");
+//	    System.out.println("Check Borders");
 	    Boolean atBorder=false;
 	    if ((int)myState.getX()==0 || (int)myState.getX()==max_x || (int)myState.getY()==0 || (int)myState.getY()==max_y) 
               atBorder=true;
@@ -836,9 +836,9 @@ public class Application {
 	    		((int)myState.getX()==max_x && (int)myState.getY()==max_y))
            atCorner=true;
 	    
-	    System.out.println("At Borders:"+atBorder+" at Corner:"+atCorner+" Direction:"+myState.getDirection());
+//	    System.out.println("At Borders:"+atBorder+" at Corner:"+atCorner+" Direction:"+myState.getDirection());
 	    
-		System.out.println("myState: "+myState.toString());
+//		System.out.println("myState: "+myState.toString());
 		
 		String cmd;
 		
@@ -938,7 +938,7 @@ public class Application {
 	    
     }
     catch (Exception e) {
-	    System.out.println("Exception:"+e);
+//	    System.out.println("Exception:"+e);
     	return recordCommand(commands);
     }
 
