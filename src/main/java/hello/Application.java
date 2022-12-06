@@ -790,15 +790,16 @@ public class Application {
 //	    
 //		}
 
-		
-		if (myState.getWasHit() && atCorner) {
-			cmd=handleCornerButHitted();
-			if (!cmd.equals(""))
-				return cmd;
-		}
-		
-	    if (myState.getWasHit() && !atCorner && atBorder) {
-		        	
+
+	    if (myState.getWasHit()) {
+
+			
+			if (atCorner) {
+				cmd=handleCornerButHitted();
+				if (!cmd.equals(""))
+					return cmd;
+			}
+			
 	    	if (atBorder) {
 	    		System.out.println("Check Was Hit (rule2): not atCorner but atBorder, try to move forward");
 	    		cmd=borderAction();
