@@ -863,59 +863,58 @@ public class Application {
 //	    
 //		}
 
-
+		//
+        // If was hit, try to move forward
+		//
 	    if (myState.getWasHit()) {
 
 			
 			if (atCorner) {
+//	    		System.out.println("Was Hit (rule1): atCorner, try to move forward");
 				cmd=handleCornerButHitted();
 				if (!cmd.equals(""))
 					return cmd;
 			}
 			
 	    	if (atBorder) {
-	    		System.out.println("Check Was Hit (rule2): not atCorner but atBorder, try to move forward");
+//	    		System.out.println("Was Hit (rule2): atBorder, try to move forward");
 	    		cmd=borderActionButHitted();
 				if (!cmd.equals(""))
 					return cmd;
 	
 	    	}
 	
-		    ////////////////////
-		    // If was hit (rule2), move forward
-		    ////////////////////
-		    System.out.println("Check Was Hit (rule4): try to move forward");
+//		    System.out.println("Was Hit (rule3): not at Corner nor border, try to move forward");
 		    cmd=moveForward();
 			if (!cmd.equals(""))
 				return cmd;
 			
+			// if all above can't find a good move, do random random
 	    	if ((new Random().nextInt(2))==0) {
-			    System.out.println("Check Was Hit (rule3): not at border and random random");	
+//			    System.out.println("Was Hit (rule4): random");	
        		    return recordCommand(commands);
 	    	}	
-	    	
-
-	    	     	
+ 	
 	    }
 	    
-		// Rule 0: already has target, throw players
-		System.out.println("Rule 0: try to throw players");
+		// Rule 5: already has target, throw players if exist
+//		System.out.println("Rule 5: try to throw players if exist");
 		cmd=throwPlayers();
 		if (!cmd.equals(""))
 			return cmd;
 		
 	    ////////////////////
-	    // move base on target
+	    // Rule 6: move base on target
 	    ////////////////////   
-		System.out.println("Check any Target");
+//		System.out.println("Rule 6: Check any target and move base on target");
 	    cmd=findNextTarget();
 		if (!cmd.equals(""))
 			return cmd;
 		
 	    ////////////////////
-	    // corners
+	    // Rule 7: corner movement
 	    ////////////////////
-		System.out.println("Check Corners");
+//		System.out.println("Rule 7: move at corners");
 		if (atCorner) {
 		    cmd=handleCorner();
 			if (!cmd.equals(""))
@@ -923,9 +922,9 @@ public class Application {
 		}
 	    
 	    ////////////////////
-	    // borders
+	    // Rule 8: borders
 	    ////////////////////
-	    System.out.println("Check atBorder:"+atBorder);
+//	    System.out.println("Rule 8: Check atBorder:"+atBorder);
 	    
 	    if (atBorder) {
     		cmd=borderAction();
@@ -933,23 +932,9 @@ public class Application {
 				return cmd;
 	    }
 
-	    ////////////////////
-	    // Throw players
-	    ////////////////////
-		System.out.println("Check Throw players");
-		cmd=throwPlayers();
-		if (!cmd.equals(""))
-			return cmd;
 	    
-	    ////////////////////
-	    // If was not hit, L or R or F
-	    ////////////////////
-	    System.out.println("Check Was Not Hit");
-	    if (!myState.getWasHit()) {
-	    	return recordCommand(lrf_rand);
-	    }
-	    
-	    System.out.println("Default");
+//	    System.out.println("Rule 9: Default L, R or F");
+	    return recordCommand(lrf_rand);
 	    
     }
     catch (Exception e) {
@@ -957,7 +942,6 @@ public class Application {
     	return recordCommand(commands);
     }
 
-    return recordCommand(commands);
   }
 
 }
