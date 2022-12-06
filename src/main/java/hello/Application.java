@@ -683,16 +683,16 @@ public class Application {
 //		if (!cmd.equals(""))
 //			return cmd;
 		
-		if (myState.getWasHit()) {
-		    ////////////////////
-		    // was hit (rule 1):Throw players
-		    ////////////////////
-			System.out.println("Check was hit (rule 1): try to throw players");
-			cmd=throwPlayers();
-			if (!cmd.equals(""))
-				return cmd;
-	    
-		}
+//		if (myState.getWasHit()) {
+//		    ////////////////////
+//		    // was hit (rule 1):Throw players
+//		    ////////////////////
+//			System.out.println("Check was hit (rule 1): try to throw players");
+//			cmd=throwPlayers();
+//			if (!cmd.equals(""))
+//				return cmd;
+//	    
+//		}
 
 	    if (myState.getWasHit() && !atCorner && atBorder) {
 		        	
@@ -703,12 +703,7 @@ public class Application {
 					return cmd;
 	
 	    	}
-	    	
-	    	if ((new Random().nextInt(2))==0) {
-			    System.out.println("Check Was Hit (rule3): not at border and random random");	
-       		    return recordCommand(commands);
-	    	}	
-	    	
+	
 		    ////////////////////
 		    // If was hit (rule2), move forward
 		    ////////////////////
@@ -716,6 +711,13 @@ public class Application {
 		    cmd=moveForward();
 			if (!cmd.equals(""))
 				return cmd;
+			
+	    	if ((new Random().nextInt(2))==0) {
+			    System.out.println("Check Was Hit (rule3): not at border and random random");	
+       		    return recordCommand(commands);
+	    	}	
+	    	
+
 	    	     	
 	    }
 	    
