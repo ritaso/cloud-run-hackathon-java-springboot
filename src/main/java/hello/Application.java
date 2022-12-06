@@ -497,16 +497,20 @@ public class Application {
 	// left or right border
   	if ((int)myState.getX()==0 || (int)myState.getX()==max_x) {
   		if (myState.getDirection().equalsIgnoreCase("N")) {
-  		    if (!canvas[myState.getX()][y1minus].getPresence() && 
+ 		    if (!canvas[myState.getX()][y1minus].getPresence() ) {
+/*  		    if (!canvas[myState.getX()][y1minus].getPresence() && 
   		        !canvas[myState.getX()][y2minus].getPresence() &&
   		        !canvas[myState.getX()][y3minus].getPresence()) {
+ */ 		    
   		        return recordCommand("F");    	
   		    }
   		}
   		else if (myState.getDirection().equalsIgnoreCase("S")) {
-  		    if (!canvas[myState.getX()][y1plus].getPresence() && 
+  		    if (!canvas[myState.getX()][y1plus].getPresence()) {
+/*  		    if (!canvas[myState.getX()][y1plus].getPresence() &&
 	    		        !canvas[myState.getX()][y2plus].getPresence() &&
 	    		        !canvas[myState.getX()][y3plus].getPresence()) {
+*/	    		        
 	    		    return recordCommand("F");    	
 	    		}		    			
   		}
@@ -519,16 +523,20 @@ public class Application {
 	// top or bottom border
   	if ((int)myState.getY()==0 || (int)myState.getY()==max_y) {
   		if (myState.getDirection().equalsIgnoreCase("W")) {
-  		    if (!canvas[x1minus][myState.getY()].getPresence() && 
+  		    if (!canvas[x1minus][myState.getY()].getPresence()) {
+/*  		    if (!canvas[x1minus][myState.getY()].getPresence() && 
   		        !canvas[x2minus][myState.getY()].getPresence() &&
   		        !canvas[x3minus][myState.getY()].getPresence()) {
+*/  		        
   		        return recordCommand("F");    	
   		    }
   		}
   		else if (myState.getDirection().equalsIgnoreCase("E")) {
-  		    if (!canvas[x1plus][myState.getY()].getPresence() && 
+  		    if (!canvas[x1plus][myState.getY()].getPresence()) {
+/*  		    if (!canvas[x1plus][myState.getY()].getPresence() && 
 	    		        !canvas[x2plus][myState.getY()].getPresence() &&
 	    		        !canvas[x3plus][myState.getY()].getPresence()) {
+*/	    		        
 	    		    return recordCommand("F");    	
 	    		}		    			
   		}
