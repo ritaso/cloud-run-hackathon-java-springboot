@@ -37,7 +37,7 @@ public class Application {
 	private Player[][] canvas; 
 	private PlayerState myState;
 	
-    private String all_rand,lr_rand,lrf_rand,commands;
+    private String all_rand,lr_rand,lrf_rand,lrf_rand2,commands;
 
 	
   static class Self {
@@ -369,6 +369,7 @@ public class Application {
 	 return "";
   }
   
+   
   public String handleCorner() {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
@@ -717,9 +718,11 @@ public class Application {
     String[] allCommands = new String[]{"F", "R", "L", "T"};
     String[] commandsLR = new String[]{"R", "L"};
     String[] commandsLRF = new String[]{"R", "L", "F"};
+    String[] commandsLRF2 = new String[]{"F","R", "F","L", "F"};
     all_rand = allCommands[new Random().nextInt(4)]; // F, R, L or T
     lr_rand = commandsLR[new Random().nextInt(2)]; // L or R
     lrf_rand = commandsLRF[new Random().nextInt(3)]; // L or R or F
+    lrf_rand2 = commandsLRF2[new Random().nextInt(5)]; // L or R or F x 3
     commands=all_rand;
     Boolean do_random=false;
     
@@ -933,8 +936,8 @@ public class Application {
 	    }
 
 	    
-//	    System.out.println("Rule 9: Default L, R or F");
-	    return recordCommand(lrf_rand);
+//	    System.out.println("Rule 9: Default L, R or Fx3");
+	    return recordCommand(lrf_rand2);
 	    
     }
     catch (Exception e) {
