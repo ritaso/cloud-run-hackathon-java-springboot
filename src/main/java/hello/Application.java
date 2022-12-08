@@ -369,7 +369,188 @@ public class Application {
 	 return "";
   }
   
-   
+  
+  public String handleHitTheHitter() {
+		
+		int left_loc=0,right_loc=0,behind_loc=0;
+		boolean [] command_tf = new boolean[]{true,true,false};
+		boolean tf_rand = command_tf[new Random().nextInt(3)]; // true or false to throw or not throw
+		    
+		    
+	  	switch (myState.getDirection() ) {
+	  	case "N":
+
+	  		 // Hitter in the front?
+			 if (myState.getY()!=0 &&
+			     (canvas[myState.getX()][y1minus].getPresence() && canvas[myState.getX()][y1minus].getDirection().equalsIgnoreCase("S") ||
+				 canvas[myState.getX()][y2minus].getPresence() && canvas[myState.getX()][y2minus].getDirection().equalsIgnoreCase("S") ||
+				 canvas[myState.getX()][y3minus].getPresence() && canvas[myState.getX()][y3minus].getDirection().equalsIgnoreCase("S"))) {
+			    if (tf_rand) {
+			    	return "T";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  		 // Hitter in the left?
+			 if (myState.getX()!=0 &&
+				     (canvas[x1minus][myState.getY()].getPresence() && canvas[x1minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
+					  canvas[x2minus][myState.getY()].getPresence() && canvas[x2minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
+					  canvas[x3minus][myState.getY()].getPresence() && canvas[x3minus][myState.getY()].getDirection().equalsIgnoreCase("E"))) {
+		    if (tf_rand) {
+			    	return "L";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  		 // Hitter in the right?
+			 if (myState.getX()!=max_x &&
+				     (canvas[x1plus][myState.getY()].getPresence() && canvas[x1plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
+					  canvas[x2plus][myState.getY()].getPresence() && canvas[x2plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
+					  canvas[x3plus][myState.getY()].getPresence() && canvas[x3plus][myState.getY()].getDirection().equalsIgnoreCase("W"))) {
+		    if (tf_rand) {
+			    	return "R";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 break;
+	  	case "S":
+	  		 
+	  	     // Hitter in the front?
+			 if (myState.getY()!=max_y &&
+			     (canvas[myState.getX()][y1plus].getPresence() && canvas[myState.getX()][y1plus].getDirection().equalsIgnoreCase("N") ||
+				 canvas[myState.getX()][y2plus].getPresence() && canvas[myState.getX()][y2plus].getDirection().equalsIgnoreCase("N") ||
+				 canvas[myState.getX()][y3plus].getPresence() && canvas[myState.getX()][y3plus].getDirection().equalsIgnoreCase("N"))) {
+			    if (tf_rand) {
+			    	return "T";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  		 // Hitter in the left?
+			 if (myState.getX()!=max_x &&
+				     (canvas[x1plus][myState.getY()].getPresence() && canvas[x1plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
+					  canvas[x2plus][myState.getY()].getPresence() && canvas[x2plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
+					  canvas[x3plus][myState.getY()].getPresence() && canvas[x3plus][myState.getY()].getDirection().equalsIgnoreCase("W"))) {
+		    if (tf_rand) {
+			    	return "L";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  		 // Hitter in the right?
+			 if (myState.getX()!=0 &&
+				     (canvas[x1minus][myState.getY()].getPresence() && canvas[x1minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
+					  canvas[x2minus][myState.getY()].getPresence() && canvas[x2minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
+					  canvas[x3minus][myState.getY()].getPresence() && canvas[x3minus][myState.getY()].getDirection().equalsIgnoreCase("E"))) {
+		    if (tf_rand) {
+			    	return "R";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 break;
+	  	case "W":
+	  		 
+	  	     // Hitter in the front?
+			 if (myState.getX()!=0 &&
+			     (canvas[x1minus][myState.getY()].getPresence() && canvas[x1minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
+				 canvas[x2minus][myState.getY()].getPresence() && canvas[x2minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
+				 canvas[x3minus][myState.getY()].getPresence() && canvas[x3minus][myState.getY()].getDirection().equalsIgnoreCase("E"))) {
+			    if (tf_rand) {
+			    	return "T";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  	     // Hitter in the left?
+			 if (myState.getY()!=max_y &&
+			     (canvas[myState.getX()][y1plus].getPresence() && canvas[myState.getX()][y1plus].getDirection().equalsIgnoreCase("N") ||
+				 canvas[myState.getX()][y2plus].getPresence() && canvas[myState.getX()][y2plus].getDirection().equalsIgnoreCase("N") ||
+				 canvas[myState.getX()][y3plus].getPresence() && canvas[myState.getX()][y3plus].getDirection().equalsIgnoreCase("N"))) {
+			    if (tf_rand) {
+			    	return "L";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  		 // Hitter in the right?
+			 if (myState.getY()!=0 &&
+			     (canvas[myState.getX()][y1minus].getPresence() && canvas[myState.getX()][y1minus].getDirection().equalsIgnoreCase("S") ||
+				 canvas[myState.getX()][y2minus].getPresence() && canvas[myState.getX()][y2minus].getDirection().equalsIgnoreCase("S") ||
+				 canvas[myState.getX()][y3minus].getPresence() && canvas[myState.getX()][y3minus].getDirection().equalsIgnoreCase("S"))) {
+			    if (tf_rand) {
+			    	return "R";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 break;
+	  	case "E":
+	  		 
+	  	     // Hitter in the front?
+			 if (myState.getX()!=max_x &&
+			     (canvas[x1plus][myState.getY()].getPresence() && canvas[x1plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
+				 canvas[x2plus][myState.getY()].getPresence() && canvas[x2plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
+				 canvas[x3plus][myState.getY()].getPresence() && canvas[x3plus][myState.getY()].getDirection().equalsIgnoreCase("W"))) {
+			    if (tf_rand) {
+			    	return "T";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  		 // Hitter in the left?
+			 if (myState.getY()!=0 &&
+			     (canvas[myState.getX()][y1minus].getPresence() && canvas[myState.getX()][y1minus].getDirection().equalsIgnoreCase("S") ||
+				 canvas[myState.getX()][y2minus].getPresence() && canvas[myState.getX()][y2minus].getDirection().equalsIgnoreCase("S") ||
+				 canvas[myState.getX()][y3minus].getPresence() && canvas[myState.getX()][y3minus].getDirection().equalsIgnoreCase("S"))) {
+			    if (tf_rand) {
+			    	return "L";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 
+	  	     // Hitter in the right?
+			 if (myState.getY()!=max_y &&
+			     (canvas[myState.getX()][y1plus].getPresence() && canvas[myState.getX()][y1plus].getDirection().equalsIgnoreCase("N") ||
+				 canvas[myState.getX()][y2plus].getPresence() && canvas[myState.getX()][y2plus].getDirection().equalsIgnoreCase("N") ||
+				 canvas[myState.getX()][y3plus].getPresence() && canvas[myState.getX()][y3plus].getDirection().equalsIgnoreCase("N"))) {
+			    if (tf_rand) {
+			    	return "R";
+			    }
+			    else {
+			    	return "";
+			    }
+			 }
+			 break;
+	    default:
+	    	return "";
+
+			 
+	  	}
+		return "";
+
+   }
+	  
   public String handleCorner() {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
 	    	switch (myState.getDirection() ) {
@@ -457,6 +638,8 @@ public class Application {
 	    }
 	    return "";
   }
+  
+
   
   public String handleCornerButHitted() {
 	    if ((int)myState.getX()==0 && (int)myState.getY()==0) {
@@ -871,6 +1054,9 @@ public class Application {
 		//
 	    if (myState.getWasHit()) {
 
+	    	cmd=handleHitTheHitter();
+			if (!cmd.equals(""))
+				return cmd;
 			
 			if (atCorner) {
 //	    		System.out.println("Was Hit (rule1): atCorner, try to move forward");
