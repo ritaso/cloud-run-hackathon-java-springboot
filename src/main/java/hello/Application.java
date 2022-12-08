@@ -39,6 +39,9 @@ public class Application {
 	
     private String all_rand,lr_rand,lrf_rand,lrf_rand2,commands;
 
+    private boolean [] command_tf = new boolean[]{true,true,false};
+    private boolean tf_rand = command_tf[new Random().nextInt(3)]; // true or false to throw or not throw
+	
 	
   static class Self {
     public String href;
@@ -373,9 +376,7 @@ public class Application {
   public String handleHitTheHitter() {
 		
 		int left_loc=0,right_loc=0,behind_loc=0;
-		boolean [] command_tf = new boolean[]{true,true,false};
-		boolean tf_rand = command_tf[new Random().nextInt(3)]; // true or false to throw or not throw
-		    
+   
 		    
 	  	switch (myState.getDirection() ) {
 	  	case "N":
