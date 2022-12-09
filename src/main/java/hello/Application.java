@@ -37,8 +37,10 @@ public class Application {
 	private Player[][] canvas; 
 	private PlayerState myState;
 	
-    private String all_rand,lr_rand,lrf_rand,lrf_rand2,commands, lrf_rand3;
-    private boolean tf_rand;
+    private String all_rand,lr_rand,lrf_rand,lrf_rand2,commands;
+
+    private boolean [] command_tf = new boolean[]{true,true,false};
+    private boolean tf_rand = command_tf[new Random().nextInt(3)]; // true or false to throw or not throw
 	
 	
   static class Self {
@@ -912,57 +914,29 @@ public String handleCornerButHitted() {
   public String moveForward() {
   	switch (myState.getDirection() ) {
   	case "N":
-//  		if (!canvas[myState.getX()][y1minus].getPresence())  {
   		if (!canvas[myState.getX()][y1minus].getPresence())  {
-  			if (canvas[myState.getX()][y2minus].getPresence() && canvas[myState.getX()][y2minus].getDirection().equalsIgnoreCase("S") ||
-  				canvas[myState.getX()][y3minus].getPresence() && canvas[myState.getX()][y3minus].getDirection().equalsIgnoreCase("S")) {
-  				return recordCommand(lrf_rand3);
-  			}
-  			else {
-  	            return recordCommand("F");
-  			}
+  	        return recordCommand("F");
   		}
   		else { 
   			return recordCommand(lr_rand);
   		}
   	case "E": 
-  //		if (!canvas[x1plus][myState.getY()].getPresence()) {
-	    if (!canvas[x1plus][myState.getY()].getPresence()) {
- 			if (canvas[x2plus][myState.getY()].getPresence() && canvas[x2plus][myState.getY()].getDirection().equalsIgnoreCase("W") ||
- 	  			canvas[x3plus][myState.getY()].getPresence() && canvas[x3plus][myState.getY()].getDirection().equalsIgnoreCase("W")) {
- 	  			return recordCommand(lrf_rand3);
- 	  		}
-	        else {
-                 return recordCommand("F");
-	        }
-	    }
+  		if (!canvas[x1plus][myState.getY()].getPresence()) { 
+  	        return recordCommand("F");
+  		}
   		else { 
-  			return recordCommand(lr_rand);
+  			return lr_rand;
   		}
   	case "S":
-//  		if (!canvas[myState.getX()][y1plus].getPresence()) {
   		if (!canvas[myState.getX()][y1plus].getPresence()) {
-			if (canvas[myState.getX()][y2plus].getPresence() && canvas[myState.getX()][y2plus].getDirection().equalsIgnoreCase("N") ||
-	 	  		canvas[myState.getX()][y3plus].getPresence() && canvas[myState.getX()][y3plus].getDirection().equalsIgnoreCase("N")) {
-				return recordCommand(lrf_rand3);
-	 	  	}
-		    else {
-	            return recordCommand("F");
-		    }
+  	        return recordCommand("F");
   		}
   		else { 
   			return recordCommand(lr_rand);
   		}
   	case "W":
-//  		if (!canvas[x1minus][myState.getY()].getPresence()) { 
-  		if (!canvas[x1minus][myState.getY()].getPresence()) {
-			if (canvas[x2minus][myState.getY()].getPresence() && canvas[x2minus][myState.getY()].getDirection().equalsIgnoreCase("E") ||
-		 	  	canvas[x3minus][myState.getY()].getPresence() && canvas[x3minus][myState.getY()].getDirection().equalsIgnoreCase("E")) {
-					return recordCommand(lrf_rand3);
-		 	  	}
-			    else {
-		            return recordCommand("F");
-			    }
+  		if (!canvas[x1minus][myState.getY()].getPresence()) { 
+  	        return recordCommand("F");
   		}
   		else { 
   			return recordCommand(lr_rand);
@@ -1110,15 +1084,10 @@ public String handleCornerButHitted() {
     String[] commandsLR = new String[]{"R", "L"};
     String[] commandsLRF = new String[]{"R", "L", "F"};
     String[] commandsLRF2 = new String[]{"F","R", "F","L", "F"};
-    String[] commandsLRF3 = new String[]{"R","R", "L","L", "F"};
     all_rand = allCommands[new Random().nextInt(4)]; // F, R, L or T
     lr_rand = commandsLR[new Random().nextInt(2)]; // L or R
     lrf_rand = commandsLRF[new Random().nextInt(3)]; // L or R or F
     lrf_rand2 = commandsLRF2[new Random().nextInt(5)]; // L or R or F x 3
-    lrf_rand3 = commandsLRF3[new Random().nextInt(5)]; // L x2 or Rx2 or Fx1
-    boolean [] command_tf = new boolean[]{true,true,false};
-    tf_rand = command_tf[new Random().nextInt(3)]; // true or false to throw or not throw
-
     commands=all_rand;
     Boolean do_random=false;
     
@@ -1267,11 +1236,10 @@ public String handleCornerButHitted() {
 		//
 	    if (myState.getWasHit()) {
 
-	    	/*
 	    	cmd=handleHitTheHitter();
 			if (!cmd.equals(""))
 				return cmd;
-			*/
+			
 			if (atCorner) {
 //	    		System.out.println("Was Hit (rule1): atCorner, try to move forward");
 				cmd=handleCornerButHitted();
